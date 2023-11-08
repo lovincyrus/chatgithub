@@ -1,14 +1,13 @@
 'use client'
 
-import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
+import * as React from 'react'
 
-import { cn } from '@/lib/utils'
 import {
-  IconArrowDown,
   IconCheck,
   IconChevronUpDown
 } from '@/components/ui/icons'
+import { cn } from '@/lib/utils'
 
 const Select = SelectPrimitive.Root
 
@@ -113,11 +112,10 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
-  SelectSeparator
-}
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue}

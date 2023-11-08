@@ -1,4 +1,5 @@
 import { UseChatHelpers } from 'ai/react'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
 
@@ -11,7 +12,6 @@ import {
 } from '@/components/ui/tooltip'
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {

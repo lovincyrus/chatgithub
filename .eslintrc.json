@@ -7,10 +7,47 @@
     "plugin:tailwindcss/recommended"
   ],
   "plugins": [
-    "tailwindcss"
+    "tailwindcss",
+    "simple-import-sort",
+    "import",
+    "unused-imports"
   ],
   "rules": {
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "no-console": "warn",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^\\u0000"
+          ],
+          [
+            "^@?\\w"
+          ],
+          [
+            "^"
+          ],
+          [
+            "^\\."
+          ]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
   "settings": {
     "tailwindcss": {

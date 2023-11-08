@@ -3,6 +3,7 @@
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { IconSidebar } from '@/components/ui/icons'
 import {
   Sheet,
   SheetContent,
@@ -10,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet'
-import { IconSidebar } from '@/components/ui/icons'
 
 export interface SidebarProps {
   children?: React.ReactNode

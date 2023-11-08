@@ -3,8 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { type Chat } from '@/lib/types'
-import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { IconMessage, IconUsers } from '@/components/ui/icons'
 import {
@@ -12,6 +10,8 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import { type Chat } from '@/lib/types'
+import { cn } from '@/lib/utils'
 
 interface SidebarItemProps {
   chat: Chat

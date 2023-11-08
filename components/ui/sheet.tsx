@@ -1,10 +1,10 @@
 'use client'
 
-import * as React from 'react'
 import * as SheetPrimitive from '@radix-ui/react-dialog'
+import * as React from 'react'
 
-import { cn } from '@/lib/utils'
 import { IconClose } from '@/components/ui/icons'
+import { cn } from '@/lib/utils'
 
 const Sheet = SheetPrimitive.Root
 
@@ -112,11 +112,10 @@ SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
   Sheet,
-  SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetHeader,
+  SheetDescription,
   SheetFooter,
+  SheetHeader,
   SheetTitle,
-  SheetDescription
-}
+  SheetTrigger}

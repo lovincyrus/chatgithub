@@ -1,7 +1,7 @@
 import { UseChatHelpers } from 'ai/react'
 
-import { Button } from '@/components/ui/button'
 import { ExternalLink } from '@/components/external-link'
+import { Button } from '@/components/ui/button'
 import { IconArrowRight } from '@/components/ui/icons'
 
 const exampleMessages = [
@@ -23,9 +23,7 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
-        <h1 className="mb-2 text-lg font-semibold">
-          Welcome to Next.js AI Chatbot!
-        </h1>
+        <h1 className="mb-2 text-lg font-semibold">Welcome to Chat GitHub!</h1>
         <p className="mb-2 leading-normal text-muted-foreground">
           This is an open source AI chatbot app template built with{' '}
           <ExternalLink href="https://nextjs.org">Next.js</ExternalLink> and{' '}

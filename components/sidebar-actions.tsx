@@ -1,11 +1,10 @@
 'use client'
 
-import * as React from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import * as React from 'react'
 import { toast } from 'react-hot-toast'
 
-import { type Chat, ServerActionResult } from '@/lib/types'
-import { cn, formatDate } from '@/lib/utils'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
+import { badgeVariants } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -31,13 +31,13 @@ import {
   IconTrash,
   IconUsers
 } from '@/components/ui/icons'
-import Link from 'next/link'
-import { badgeVariants } from '@/components/ui/badge'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import { type Chat, ServerActionResult } from '@/lib/types'
+import { cn, formatDate } from '@/lib/utils'
 
 interface SidebarActionsProps {
   chat: Chat
