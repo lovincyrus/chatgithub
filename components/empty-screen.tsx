@@ -2,28 +2,21 @@ import { UseChatHelpers } from 'ai/react'
 
 import { ExternalLink } from '@/components/external-link'
 import { Button } from '@/components/ui/button'
-import { IconArrowRight } from '@/components/ui/icons'
 
 const exampleMessages = [
-  {
-    heading: 'Explain technical concepts',
-    message: `What is a "serverless function"?`
-  },
-  {
-    heading: 'Summarize an article',
-    message: 'Summarize the following article for a 2nd grader: \n'
-  },
-  {
-    heading: 'Draft an email',
-    message: `Draft an email to my boss about the following: \n`
-  }
+  `Retrieve the content of the 'README.md' file from the 'octocat/Hello-World' repository on GitHub.`,
+  `List the comments on issue #42 in the 'octocat/Hello-World' repository.`,
+  `Find all open issues in the 'nodejs/node' repository on GitHub.`,
+  `Show me the comments on pull request #123 in the 'facebook/react' repository.`,
+  `Get a summary of the comments on the latest pull request in the 'angular/angular' repository.`,
+  `Summarize the top issues found in emilkowalski/vaul.`
 ]
 
 export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="rounded-lg border bg-background p-8">
-        <h1 className="mb-2 text-lg font-semibold">Welcome to Chat GitHub!</h1>
+        <h1 className="mb-2 text-lg font-semibold">Welcome to ChatGitHub!</h1>
         <p className="mb-2 leading-normal text-muted-foreground">
           This is an open source AI chatbot app template built with{' '}
           <ExternalLink href="https://nextjs.org">Next.js</ExternalLink> and{' '}
@@ -41,10 +34,9 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
               key={index}
               variant="link"
               className="h-auto p-0 text-base"
-              onClick={() => setInput(message.message)}
+              onClick={() => setInput(message)}
             >
-              <IconArrowRight className="mr-2 text-muted-foreground" />
-              {message.heading}
+              <p className="text-left">{message}</p>
             </Button>
           ))}
         </div>

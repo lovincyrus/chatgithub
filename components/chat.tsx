@@ -1,6 +1,6 @@
 'use client'
 
-import { type Message,useChat } from 'ai/react'
+import { type Message, useChat } from 'ai/react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -46,6 +46,9 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       onResponse(response) {
         if (response.status === 401) {
           toast.error(response.statusText)
+        } else if (response.status === 429) {
+          // Error: 429 Rate limit reached for gpt-4-1106-preview on tokens per min. Limit: 80000 / min. Current: 1 / min.
+          toast.error('You have reached your request limit for the day.')
         }
       }
     })
