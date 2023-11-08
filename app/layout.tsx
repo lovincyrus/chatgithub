@@ -17,8 +17,8 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Chat GitHub',
-    template: `%s - Chat GitHub`
+    default: 'ChatGitHub',
+    template: `%s - ChatGitHub`
   },
   description:
     'Chat with GitHub using natural language built with OpenAI Functions and Vercel AI SDK.',
