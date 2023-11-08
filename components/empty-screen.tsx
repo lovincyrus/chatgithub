@@ -18,7 +18,8 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
       <div className="rounded-lg border bg-background p-8">
         <h1 className="mb-2 text-lg font-semibold">Welcome to ChatGitHub!</h1>
         <p className="mb-2 leading-normal text-muted-foreground">
-          This is an open source AI chatbot app template built with{' '}
+          This is an open source chatbot that can answer questions about GitHub
+          built with{' '}
           <ExternalLink href="https://platform.openai.com/docs/guides/function-calling">
             OpenAI Functions
           </ExternalLink>{' '}

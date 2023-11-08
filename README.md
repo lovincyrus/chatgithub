@@ -12,9 +12,10 @@ https://github.com/lovincyrus/chatgithub/assets/1021101/1af44fff-79d7-4fff-8fad-
 
 This template ships with OpenAI `gpt-4-1106-preview` as the default. However, thanks to the [Vercel AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [Anthropic](https://anthropic.com), [Hugging Face](https://huggingface.co), or using [LangChain](https://js.langchain.com) with just a few lines of code.
 
-## Running locally
+## Getting Started
 
 ```bash
+echo "OPENAI_API_KEY=XXXXXX" > .env.local
 pnpm install
 pnpm dev
 ```
