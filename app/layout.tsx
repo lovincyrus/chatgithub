@@ -1,12 +1,19 @@
 import '@/app/globals.css'
 
 import { Metadata } from 'next'
-import { Toaster } from 'react-hot-toast'
 
 import { Header } from '@/components/header'
 import { Providers } from '@/components/providers'
+import Toaster from '@/components/toaster'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
+
+export const viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' }
+  ]
+}
 
 export const metadata: Metadata = {
   title: {
@@ -16,10 +23,6 @@ export const metadata: Metadata = {
   description:
     'Chat with GitHub using natural language built with OpenAI Functions and Vercel AI SDK.',
   metadataBase: new URL('https://chatgithub.vercel.app'),
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' }
-  ],
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
@@ -45,7 +48,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Toaster />
         <Providers attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
-            {/* @ts-ignore */}
             <Header />
             <main className="flex flex-1 flex-col bg-muted/50">{children}</main>
           </div>

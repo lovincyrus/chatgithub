@@ -200,7 +200,6 @@ export async function runFunction(name: string, args: any) {
     throw new Error(`GitHub function '${name}' not found.`)
   }
 
-  // Execute the GitHub function
   switch (name) {
     case 'get_repository_content':
       return await get_repository_content(args.owner, args.repo, args.path)

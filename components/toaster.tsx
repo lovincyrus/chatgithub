@@ -1,3 +1,3 @@
 'use client'
 
-export { Toaster } from 'react-hot-toast'
+export { Toaster as default } from 'sonner'
