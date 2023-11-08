@@ -103,6 +103,24 @@ export const functions: ChatCompletionCreateParams.Function[] = [
       },
       required: ['owner', 'repo']
     }
+  },
+  {
+    name: 'get_latest_pull_request',
+    description: 'Get the latest pull request in a GitHub repository.',
+    parameters: {
+      type: 'object',
+      properties: {
+        owner: {
+          type: 'string',
+          description: 'The owner of the GitHub repository.'
+        },
+        repo: {
+          type: 'string',
+          description: 'The name of the GitHub repository.'
+        }
+      },
+      required: ['owner', 'repo']
+    }
   }
 ]
 
@@ -182,6 +200,25 @@ async function get_pull_request_comments(
   }
 }
 
+async function get_latest_pull_request(owner: string, repo: string) {
+  try {
+    const pullRequests = await githubApiRequest(
+      `/repos/${owner}/${repo}/pulls?sort=created&direction=desc`
+    )
+
+    if (pullRequests.length > 0) {
+      const latestPullRequest = pullRequests[0]
+
+      return latestPullRequest
+    } else {
+      throw new Error('No pull requests found in the repository.')
+    }
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 async function get_pull_requests(owner: string, repo: string) {
   try {
     const pullRequests = await githubApiRequest(`/repos/${owner}/${repo}/pulls`)
@@ -213,6 +250,8 @@ export async function runFunction(name: string, args: any) {
         args.repo,
         args.pull_request_number
       )
+    case 'get_latest_pull_request':
+      return await get_latest_pull_request(args.owner, args.repo)
     case 'get_pull_requests':
       return await get_pull_requests(args.owner, args.repo)
     default:

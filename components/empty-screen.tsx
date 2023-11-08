@@ -4,7 +4,7 @@ import { ExternalLink } from '@/components/external-link'
 import { Button } from '@/components/ui/button'
 
 const exampleMessages = [
-  `Retrieve the content of the 'README.md' file from the 'octocat/Hello-World' repository on GitHub.`,
+  `Summarize the README of 'kern/filepizza'.`,
   `List the comments on issue #42 in the 'octocat/Hello-World' repository.`,
   `Find all open issues in the 'nodejs/node' repository on GitHub.`,
   `Show me the comments on pull request #123 in the 'facebook/react' repository.`,
