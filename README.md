@@ -4,6 +4,8 @@
   Chat with GitHub using natural language built with OpenAI Functions and Vercel AI SDK.
 </p>
 
+https://github.com/lovincyrus/chatgithub/assets/1021101/1af44fff-79d7-4fff-8fad-efa0354062f4
+
 <br/>
 
 ## Model Providers
