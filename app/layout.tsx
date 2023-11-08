@@ -10,10 +10,11 @@ import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Next.js AI Chatbot',
-    template: `%s - Next.js AI Chatbot`
+    default: 'Chat GitHub',
+    template: `%s - Chat GitHub`
   },
-  description: 'An AI-powered chatbot template built with Next.js and Vercel.',
+  description:
+    'Chat with GitHub using natural language built with OpenAI Functions and Vercel AI SDK.',
   metadataBase: new URL('https://chatgithub.vercel.app'),
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
