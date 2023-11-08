@@ -4,11 +4,11 @@ import { ExternalLink } from '@/components/external-link'
 import { Button } from '@/components/ui/button'
 
 const exampleMessages = [
-  `Summarize the README of 'kern/filepizza'.`,
   `List the comments on issue #42 in the 'octocat/Hello-World' repository.`,
-  `Find all open issues in the 'nodejs/node' repository on GitHub.`,
+  `Find all open issues in the 'simonw/datasette' repository on GitHub.`,
   `Show me the comments on pull request #123 in the 'facebook/react' repository.`,
-  `Get a summary of the comments on the latest pull request in the 'angular/angular' repository.`,
+  `Get a summary of the comments on the latest pull request in the 'run-llama/llama_index' repository.`,
+  `Summarize the README of 'kern/filepizza'.`,
   `Summarize the top issues found in emilkowalski/vaul.`
 ]
 

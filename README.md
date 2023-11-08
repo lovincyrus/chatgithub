@@ -21,4 +21,4 @@ Your app template should now be running on [localhost:3000](http://localhost:300
 
 ## Acknowledgements
 
-Inspired by [chathn](https://github.com/steven-tey/chathn)
+Hacked from scratch using [ai-chatbot](https://github.com/vercel-labs/ai-chatbot) and inspired by [chathn](https://github.com/steven-tey/chathn)

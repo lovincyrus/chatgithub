@@ -147,15 +147,10 @@ async function get_repository_content(
   repo: string,
   path: string
 ) {
-  try {
-    const content = await githubApiRequest(
-      `/repos/${owner}/${repo}/contents/${path}`
-    )
-    return content
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const content = await githubApiRequest(
+    `/repos/${owner}/${repo}/contents/${path}`
+  )
+  return content
 }
 
 async function get_issue_comments(
@@ -163,25 +158,15 @@ async function get_issue_comments(
   repo: string,
   issueNumber: number
 ) {
-  try {
-    const comments = await githubApiRequest(
-      `/repos/${owner}/${repo}/issues/${issueNumber}/comments`
-    )
-    return comments
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const comments = await githubApiRequest(
+    `/repos/${owner}/${repo}/issues/${issueNumber}/comments`
+  )
+  return comments
 }
 
 async function get_issues(owner: string, repo: string) {
-  try {
-    const issues = await githubApiRequest(`/repos/${owner}/${repo}/issues`)
-    return issues
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const issues = await githubApiRequest(`/repos/${owner}/${repo}/issues`)
+  return issues
 }
 
 async function get_pull_request_comments(
@@ -189,54 +174,30 @@ async function get_pull_request_comments(
   repo: string,
   pullRequestNumber: number
 ) {
-  try {
-    const comments = await githubApiRequest(
-      `/repos/${owner}/${repo}/pulls/${pullRequestNumber}/comments`
-    )
-    return comments
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const comments = await githubApiRequest(
+    `/repos/${owner}/${repo}/pulls/${pullRequestNumber}/comments`
+  )
+  return comments
 }
 
 async function get_latest_pull_request(owner: string, repo: string) {
-  try {
-    const pullRequests = await githubApiRequest(
-      `/repos/${owner}/${repo}/pulls?sort=created&direction=desc`
-    )
+  const pullRequests = await githubApiRequest(
+    `/repos/${owner}/${repo}/pulls?sort=created&direction=desc`
+  )
 
-    if (pullRequests.length > 0) {
-      const latestPullRequest = pullRequests[0]
+  if (pullRequests.length > 0) {
+    const latestPullRequest = pullRequests[0]
 
-      return latestPullRequest
-    } else {
-      throw new Error('No pull requests found in the repository.')
-    }
-  } catch (error) {
-    console.error(error)
-    throw error
+    return latestPullRequest
   }
 }
 
 async function get_pull_requests(owner: string, repo: string) {
-  try {
-    const pullRequests = await githubApiRequest(`/repos/${owner}/${repo}/pulls`)
-    return pullRequests
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const pullRequests = await githubApiRequest(`/repos/${owner}/${repo}/pulls`)
+  return pullRequests
 }
 
 export async function runFunction(name: string, args: any) {
-  // Find the GitHub function with the given name
-  const githubFunction = functions.find(func => func.name === name)
-
-  if (!githubFunction) {
-    throw new Error(`GitHub function '${name}' not found.`)
-  }
-
   switch (name) {
     case 'get_repository_content':
       return await get_repository_content(args.owner, args.repo, args.path)
@@ -255,6 +216,6 @@ export async function runFunction(name: string, args: any) {
     case 'get_pull_requests':
       return await get_pull_requests(args.owner, args.repo)
     default:
-      throw new Error(`Unsupported GitHub function '${name}'.`)
+      return null
   }
 }
