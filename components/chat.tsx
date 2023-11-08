@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { IS_PREVIEW, IS_PROD } from '@/lib/constants'
+import { IS_PREVIEW } from '@/lib/constants'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import { cn } from '@/lib/utils'
 
@@ -30,7 +30,7 @@ export interface ChatProps extends React.ComponentProps<'div'> {
 
 export function Chat({ id, initialMessages, className }: ChatProps) {
   const [aiToken, setAiToken] = useLocalStorage<string | null>('ai-token', null)
-  const [aiTokenDialog, setAiTokenDialog] = useState(IS_PREVIEW || IS_PROD)
+  const [aiTokenDialog, setAiTokenDialog] = useState(IS_PREVIEW)
   const [aiTokenInput, setAiTokenInput] = useState(aiToken ?? '')
   const { messages, append, reload, stop, isLoading, input, setInput } =
     useChat({
