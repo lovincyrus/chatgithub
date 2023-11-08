@@ -121,6 +121,84 @@ export const functions: ChatCompletionCreateParams.Function[] = [
       },
       required: ['owner', 'repo']
     }
+  },
+  {
+    name: 'get_repository_details',
+    description: 'Get details about a GitHub repository.',
+    parameters: {
+      type: 'object',
+      properties: {
+        owner: {
+          type: 'string',
+          description: 'The owner of the GitHub repository.'
+        },
+        repo: {
+          type: 'string',
+          description: 'The name of the GitHub repository.'
+        }
+      },
+      required: ['owner', 'repo']
+    }
+  },
+  {
+    name: 'get_user_details',
+    description: 'Get details about a GitHub user.',
+    parameters: {
+      type: 'object',
+      properties: {
+        username: {
+          type: 'string',
+          description: 'The GitHub username of the user.'
+        }
+      },
+      required: ['username']
+    }
+  },
+  {
+    name: 'list_user_repositories',
+    description: 'List repositories owned by a GitHub user.',
+    parameters: {
+      type: 'object',
+      properties: {
+        username: {
+          type: 'string',
+          description: 'The GitHub username of the user.'
+        }
+      },
+      required: ['username']
+    }
+  },
+  {
+    name: 'search_repositories',
+    description: 'Search for GitHub repositories based on a query.',
+    parameters: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'The search query for repositories.'
+        }
+      },
+      required: ['query']
+    }
+  },
+  {
+    name: 'get_repo_contributors',
+    description: 'Get contributors of a GitHub repository.',
+    parameters: {
+      type: 'object',
+      properties: {
+        owner: {
+          type: 'string',
+          description: 'The owner of the GitHub repository.'
+        },
+        repo: {
+          type: 'string',
+          description: 'The name of the GitHub repository.'
+        }
+      },
+      required: ['owner', 'repo']
+    }
   }
 ]
 
@@ -197,6 +275,36 @@ async function get_pull_requests(owner: string, repo: string) {
   return pullRequests
 }
 
+async function get_repository_details(owner: string, repo: string) {
+  const details = await githubApiRequest(`/repos/${owner}/${repo}`)
+  return details
+}
+
+async function get_user_details(username: string) {
+  const userDetails = await githubApiRequest(`/users/${username}`)
+  return userDetails
+}
+
+async function list_user_repositories(username: string) {
+  const repositories = await githubApiRequest(`/users/${username}/repos`)
+  return repositories
+}
+
+async function search_repositories(query: string) {
+  const encodedQuery = encodeURIComponent(query) // Ensure the query is properly encoded
+  const searchResults = await githubApiRequest(
+    `/search/repositories?q=${encodedQuery}`
+  )
+  return searchResults
+}
+
+async function get_repo_contributors(owner: string, repo: string) {
+  const contributors = await githubApiRequest(
+    `/repos/${owner}/${repo}/contributors`
+  )
+  return contributors
+}
+
 export async function runFunction(name: string, args: any) {
   switch (name) {
     case 'get_repository_content':
@@ -215,6 +323,16 @@ export async function runFunction(name: string, args: any) {
       return await get_latest_pull_request(args.owner, args.repo)
     case 'get_pull_requests':
       return await get_pull_requests(args.owner, args.repo)
+    case 'get_repository_details':
+      return await get_repository_details(args.owner, args.repo)
+    case 'get_user_details':
+      return await get_user_details(args.username)
+    case 'list_user_repositories':
+      return await list_user_repositories(args.username)
+    case 'search_repositories':
+      return await search_repositories(args.query)
+    case 'get_repo_contributors':
+      return await get_repo_contributors(args.owner, args.repo)
     default:
       return null
   }
