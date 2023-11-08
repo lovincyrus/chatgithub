@@ -1,6 +1,6 @@
-import { CompletionCreateParams } from 'openai/resources/chat/index'
+import { ChatCompletionCreateParams } from 'openai/resources/chat/index'
 
-export const functions: CompletionCreateParams.Function[] = [
+export const functions: ChatCompletionCreateParams.Function[] = [
   {
     name: 'get_repository_content',
     description:
@@ -106,7 +106,7 @@ export const functions: CompletionCreateParams.Function[] = [
   }
 ]
 
-async function githubApiRequest(path, options = {}) {
+async function githubApiRequest(path: string, options = {}) {
   const headers = {
     Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
     Accept: 'application/vnd.github.v3+json'
@@ -124,7 +124,11 @@ async function githubApiRequest(path, options = {}) {
   return await response.json()
 }
 
-async function get_repository_content(owner, repo, path) {
+async function get_repository_content(
+  owner: string,
+  repo: string,
+  path: string
+) {
   try {
     const content = await githubApiRequest(
       `/repos/${owner}/${repo}/contents/${path}`
@@ -136,7 +140,11 @@ async function get_repository_content(owner, repo, path) {
   }
 }
 
-async function get_issue_comments(owner, repo, issueNumber) {
+async function get_issue_comments(
+  owner: string,
+  repo: string,
+  issueNumber: number
+) {
   try {
     const comments = await githubApiRequest(
       `/repos/${owner}/${repo}/issues/${issueNumber}/comments`
@@ -148,7 +156,7 @@ async function get_issue_comments(owner, repo, issueNumber) {
   }
 }
 
-async function get_issues(owner, repo) {
+async function get_issues(owner: string, repo: string) {
   try {
     const issues = await githubApiRequest(`/repos/${owner}/${repo}/issues`)
     return issues
@@ -158,7 +166,11 @@ async function get_issues(owner, repo) {
   }
 }
 
-async function get_pull_request_comments(owner, repo, pullRequestNumber) {
+async function get_pull_request_comments(
+  owner: string,
+  repo: string,
+  pullRequestNumber: number
+) {
   try {
     const comments = await githubApiRequest(
       `/repos/${owner}/${repo}/pulls/${pullRequestNumber}/comments`
@@ -170,7 +182,7 @@ async function get_pull_request_comments(owner, repo, pullRequestNumber) {
   }
 }
 
-async function get_pull_requests(owner, repo) {
+async function get_pull_requests(owner: string, repo: string) {
   try {
     const pullRequests = await githubApiRequest(`/repos/${owner}/${repo}/pulls`)
     return pullRequests
