@@ -18,3 +18,7 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
+
+## Acknowledgements
+
+Inspired by [chathn](https://github.com/steven-tey/chathn)
