@@ -1,7 +1,6 @@
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { GPTTokens } from 'gpt-tokens'
 import { OpenAI } from 'openai'
 
 import { functions, runFunction } from './functions'
@@ -49,21 +48,6 @@ export async function POST(req: Request) {
     functions,
     function_call: 'auto'
   })
-
-  const usageInfo = new GPTTokens({
-    model: 'gpt-4-1106-preview',
-    messages: messages
-  })
-
-  // eslint-disable-next-line no-console
-  console.log({
-    'Tokens prompt': usageInfo.promptUsedTokens,
-    'Tokens completion': usageInfo.completionUsedTokens,
-    'Tokens total': usageInfo.usedTokens
-  })
-
-  // eslint-disable-next-line no-console
-  console.log('Price USD: ', usageInfo.usedUSD)
 
   const stream = OpenAIStream(initialResponse, {
     experimental_onFunctionCall: async (
