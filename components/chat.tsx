@@ -16,32 +16,29 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
+import { IS_PREVIEW, IS_PROD } from '@/lib/constants'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import { cn } from '@/lib/utils'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 
-const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
   id?: string
 }
 
 export function Chat({ id, initialMessages, className }: ChatProps) {
-  const [previewToken, setPreviewToken] = useLocalStorage<string | null>(
-    'ai-token',
-    null
-  )
-  const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
-  const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
+  const [aiToken, setAiToken] = useLocalStorage<string | null>('ai-token', null)
+  const [aiTokenDialog, setAiTokenDialog] = useState(IS_PREVIEW || IS_PROD)
+  const [aiTokenInput, setAiTokenInput] = useState(aiToken ?? '')
   const { messages, append, reload, stop, isLoading, input, setInput } =
     useChat({
       initialMessages,
       id,
       body: {
         id,
-        previewToken
+        aiToken
       },
       onResponse(response) {
         if (response.status === 401) {
@@ -75,7 +72,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setInput={setInput}
       />
 
-      <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
+      <Dialog open={aiTokenDialog} onOpenChange={setAiTokenDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Enter your OpenAI Key</DialogTitle>
@@ -87,22 +84,23 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
               >
                 signing up
               </a>{' '}
-              on the OpenAI website. This is only necessary for preview
-              environments so that the open source community can test the app.
-              The token will be saved to your browser&apos;s local storage under
-              the name <code className="font-mono">ai-token</code>.
+              on the OpenAI website. This is only necessary for preview &
+              production environments so that the open source community can test
+              the app. The token will be saved to your browser&apos;s local
+              storage under the name <code className="font-mono">ai-token</code>
+              .
             </DialogDescription>
           </DialogHeader>
           <Input
-            value={previewTokenInput}
+            value={aiTokenInput}
             placeholder="OpenAI API key"
-            onChange={e => setPreviewTokenInput(e.target.value)}
+            onChange={e => setAiTokenInput(e.target.value)}
           />
           <DialogFooter className="items-center">
             <Button
               onClick={() => {
-                setPreviewToken(previewTokenInput)
-                setPreviewTokenDialog(false)
+                setAiToken(aiTokenInput)
+                setAiTokenDialog(false)
               }}
             >
               Save Token
