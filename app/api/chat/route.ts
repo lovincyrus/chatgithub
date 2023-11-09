@@ -1,6 +1,7 @@
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { NextResponse } from 'next/server'
 import { OpenAI } from 'openai'
 
 import { functions, runFunction } from './functions'
@@ -35,34 +36,46 @@ export async function POST(req: Request) {
     }
   }
 
-  const { messages, aiToken } = await req.json()
+  // See: https://github.com/vercel/ai/issues/358#issuecomment-1702553180
+  // Wrap with a try/catch to handle API errors
+  try {
+    const { messages, aiToken } = await req.json()
 
-  const openai = new OpenAI({
-    apiKey: aiToken ? aiToken : process.env.OPENAI_API_KEY
-  })
+    const openai = new OpenAI({
+      apiKey: aiToken ? aiToken : process.env.OPENAI_API_KEY
+    })
 
-  const initialResponse = await openai.chat.completions.create({
-    model: 'gpt-4-1106-preview',
-    messages,
-    stream: true,
-    functions,
-    function_call: 'auto'
-  })
+    const initialResponse = await openai.chat.completions.create({
+      model: 'gpt-4-1106-preview',
+      messages,
+      stream: true,
+      functions,
+      function_call: 'auto'
+    })
 
-  const stream = OpenAIStream(initialResponse, {
-    experimental_onFunctionCall: async (
-      { name, arguments: args },
-      createFunctionCallMessages
-    ) => {
-      const result = await runFunction(name, args)
-      const newMessages = createFunctionCallMessages(result)
-      return openai.chat.completions.create({
-        model: 'gpt-4-1106-preview',
-        stream: true,
-        messages: [...messages, ...newMessages]
-      })
+    const stream = OpenAIStream(initialResponse, {
+      experimental_onFunctionCall: async (
+        { name, arguments: args },
+        createFunctionCallMessages
+      ) => {
+        const result = await runFunction(name, args)
+        const newMessages = createFunctionCallMessages(result)
+        return openai.chat.completions.create({
+          model: 'gpt-4-1106-preview',
+          stream: true,
+          messages: [...messages, ...newMessages]
+        })
+      }
+    })
+
+    return new StreamingTextResponse(stream)
+  } catch (error) {
+    // Check if the error is an APIError
+    if (error instanceof OpenAI.APIError) {
+      const { name, status, headers, message } = error
+      return NextResponse.json({ name, status, headers, message }, { status })
+    } else {
+      throw error
     }
-  })
-
-  return new StreamingTextResponse(stream)
+  }
 }
